@@ -1,7 +1,7 @@
 <template>
     <div class="custom-load-distance">
         <nav-bar title="Custom Load Distance"></nav-bar>
-        <simple-scroll v-if="imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="600">
+        <simple-scroll v-if="imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="600" :offset="44">
             <ul>
                 <li v-for="item in imgList">
                     <img :src="item.img">
@@ -75,6 +75,7 @@
         overflow: hidden;
         ul li {
             height: 260px;
+            margin-bottom: 10px;
             img{
                 width: 100%;
                 height: 100%;

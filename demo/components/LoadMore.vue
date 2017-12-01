@@ -2,7 +2,7 @@
     <div class="infinite">
         <nav-bar title="infinite"></nav-bar>
 
-        <simple-scroll v-if="imgList.length" :on-infinite="infinite" :distance="0">
+        <simple-scroll v-if="imgList.length" :on-infinite="infinite" :distance="0" :offset="44">
             <ul>
                 <li v-for="item in imgList">
                     <img :src="item.img" alt="">
@@ -71,6 +71,7 @@
         overflow: hidden;
         ul li {
             height: 260px;
+            margin-bottom: 10px;
             img{
                 width: 100%;
                 height: 100%;

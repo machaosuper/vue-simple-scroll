@@ -2,7 +2,7 @@
     <div class="custom-spinner">
         <nav-bar title="Custom Spinner"></nav-bar>
 
-        <simple-scroll v-if="imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="0">
+        <simple-scroll v-if="imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="0" :offset="44">
             <div class="spinner-refresh" slot="refresh-spinner"></div>
             <ul>
                 <li v-for="item in imgList">
@@ -80,6 +80,7 @@
         overflow: hidden;
         ul li {
             height: 260px;
+            margin-bottom: 10px;
             img{
                 width: 100%;
                 height: 100%;

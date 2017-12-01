@@ -107,6 +107,7 @@
         }
         ul.img-list li {
             height: 260px;
+            margin-bottom: 10px;
             img{
                 width: 100%;
                 height: 100%;
