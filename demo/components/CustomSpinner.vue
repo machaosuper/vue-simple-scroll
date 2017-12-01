@@ -79,6 +79,7 @@
         height: 100vh;
         overflow: hidden;
         ul li {
+            height: 260px;
             img{
                 width: 100%;
                 height: 100%;

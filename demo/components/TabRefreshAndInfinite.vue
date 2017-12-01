@@ -4,7 +4,7 @@
         <ul class="tab flex">
             <li v-for="(tab, index) in tabList" :class="{'active': index === tabIndex}" @click="tabClick(index)">{{tab}}</li>
         </ul>
-        <simple-scroll v-if="imgData[tabIndex] && imgData[tabIndex].imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="0" :offset="50" ref="simpleScroll">
+        <simple-scroll v-if="imgData[tabIndex] && imgData[tabIndex].imgList.length" :on-refresh="refresh" :on-infinite="infinite" :distance="0" :offset="94" ref="simpleScroll">
             <ul class="img-list">
                 <li v-for="item in imgData[tabIndex].imgList">
                     <img :src="item.img" alt="">
@@ -22,7 +22,6 @@
         data () {
             return {
                 list: 50,
-                pageNo: 0,
                 imgData: {},
                 tabList: ['全部', '测试1', '测试2', '测试3'],
                 tabIndex: 0
@@ -35,15 +34,21 @@
         methods: {
             tabClick (index) {
                 this.tabIndex = index;
+                this.$refs.simpleScroll.scrollTop(0);
+                if (this.imgData[this.tabIndex]) {
+                    console.log(this.imgData);
+                    this.$refs.simpleScroll.setInfiniteStatus(this.imgData[this.tabIndex].isLast);
+                    return false;
+                };
                 this.getData(() => {
-                    this.$refs.simpleScroll.scrollTop(0);
-                    this.$refs.simpleScroll.resetInfinite();
+                    this.$nextTick(() => {
+                        this.$refs.simpleScroll.resetInfinite();
+                    })
                 });
             },
             refresh (done) {
                 console.log('refresh');
                 this.getData(() => {
-                    this.pageNo = 0;
                     this.$refs.simpleScroll.resetInfinite();
                     done();
                 }, false, true);
@@ -101,6 +106,7 @@
             }
         }
         ul.img-list li {
+            height: 260px;
             img{
                 width: 100%;
                 height: 100%;

@@ -1,18 +1,17 @@
 {
   "name": "vue-simple-scroll",
   "description": "High-performance rolling Vue components, refresh and unlimited load.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "machao <272110541@qq.com>",
-  "homepage": "",
+  "homepage": "https://github.com/machaosuper/vue-simple-scroll.git",
   "license": "9000",
   "main": "libs/vue-simple-scroll.min.js",
-  "private": true,
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/machaosuper/vue-simple-scroll.git"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --host 172.16.107.90 --open --hot --port=9000",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port=9000",
     "build": "cross-env NODE_ENV=production BUILD=publish webpack --progress --hide-modules",
     "doc": "cross-env NODE_ENV=production BUILD=doc webpack --progress --hide-modules",
     "mock": "node mock.js"

@@ -17,16 +17,15 @@
             <slot name="refresh-spinner">
                 <spinner-refresh :style="{fill: refreshLayerColor, stroke: refreshLayerColor}"></spinner-refresh>
             </slot>
-            {{statusText}}
+            <span v-if="isRefreshText" :style="{color: refreshLayerColor}">{{statusText}}</span>
         </div>
         <div class="content-wrapper" ref="content">
             <slot></slot>
             <div class="more-data flex" v-if="onInfinite">
                 <slot name="infinite-spinner" v-if="!isNoData">
-                      <spinner-infinite :style="{fill: refreshLayerColor, stroke: refreshLayerColor}"></spinner-infinite>
+                      <spinner-infinite :style="{fill: loadingLayerColor, stroke: loadingLayerColor}"></spinner-infinite>
                 </slot>
-                
-                {{isNoData ? noDataText : infiniteLoadingText}}
+                <span :style="{color: loadingLayerColor}">{{isNoData ? noDataText : infiniteLoadingText}}</span>
             </div>
         </div>
     </div>
@@ -45,13 +44,17 @@
                 type: Number,
                 default: 0
             },
+            isRefreshText: {
+                type: Boolean,
+                default: true
+            },
             noDataText: {
                 type: String,
                 default: '我是有底线的~~'
             },
             infiniteLoadingText: {
                 type: String,
-                default: '加载中...'
+                default: '加载中'
             },
             offset: {
                 type: Number,
@@ -116,14 +119,13 @@
             init () {
                 this.target = this.$el;
                 this.loadingHeight = this.onRefresh ? this.$refs.loadingIcon.clientHeight : 0;
-                setTimeout(() => {
-                    this._calculateHeight();
-                }, 100);
+                this._calculateHeight();
             },
             _calculateHeight () {
                 this.$nextTick(() => {
-                    this.contnetHeight = this.$refs.content.clientHeight;
-                    this.scrollHeight = this.contnetHeight - (this.target.clientHeight - this.loadingHeight);
+                    this.contentHeight = this.$refs.content.clientHeight;
+                    this.scrollHeight = this.contentHeight - this.target.clientHeight - this.loadingHeight;
+                    // console.log('contentHeight:' + this.contentHeight + ' el:' + this.target.clientHeight + ' loadingHeight:' + this.loadingHeight);
                 });
             },
             start (e) {
@@ -184,26 +186,34 @@
                 this.infiniteLoading = true
                 this.onInfinite(this.infiniteDone)
             },
-            resetInfinite () {
-                this.infiniteLoading = false;
-                this.isNoData = false;
-                this._calculateHeight();
-            },
-
             infiniteDone (isNoData) {
-                this.infiniteLoading = !!isNoData;
+                this.infiniteLoading = false;
                 this._calculateHeight();
                 if (isNoData) {
                     this.isNoData = isNoData
                 }
             },
+            resetInfinite () {
+                this.infiniteLoading = false;
+                this.isNoData = false;
+                this._calculateHeight();
+            },
+            setInfiniteStatus (status) {
+                this.isNoData = status;
+                this._calculateHeight();
+            },
             scrollTop (top) {
                 this.target.scrollTop = top;
             },
+            getPosition () {
+                return his.target.scrollTop;
+            },
             onScroll () {
-                if (this.infiniteLoading) {
+                console.log('infiniteLoading:' + this.infiniteLoading + 'isNoData:' + this.isNoData);
+                if (this.infiniteLoading || this.isNoData) {
                     return
                 }
+                console.log('scrollTop:' + this.target.scrollTop + 'scrollHeight:' + this.scrollHeight);
                 if (this.target.scrollTop >= (this.scrollHeight - this.distance)) {
                     this.infinite()
                 }
@@ -224,7 +234,7 @@
         -webkit-overflow-scrolling: touch;
         height: 100%;
         position: relative;
-        padding-bottom: 46px;
+        // padding-bottom: 46px;
         transition-duration: 300ms;
         &.touching{
             transition-duration: 0ms;
