@@ -1,4 +1,4 @@
-# Vue Simple Scroll ![version](https://img.shields.io/badge/version-%20v1.0.0%20-green.svg) ![vue](https://img.shields.io/badge/vue-%20v2.4.4%20-green.svg) 
+# Vue Simple Scroll ![version](https://img.shields.io/badge/version-%20v1.0.1%20-green.svg) ![vue](https://img.shields.io/badge/vue-%20v2.4.4%20-green.svg) 
 
 [Vue Simple Scroll](https://github.com/machaosuper/vue-simple-scroll) High-performance rolling Vue components, refresh and unlimited load.
 
@@ -6,6 +6,18 @@
 ## Demo
 
 [https://github.com/machaosuper/vue-simple-scroll](https://github.com/machaosuper/vue-simple-scroll)
+### or
+```bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:9000
+npm run dev
+
+# build for production with minification
+npm run build
+```
+
 
 ## How to use
 
