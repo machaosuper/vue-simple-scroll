@@ -22,7 +22,7 @@ npm run build
 ## How to use
 
 ```bash
-npm i vue-simple-scroll --save-dev
+npm i vue-simple-scroll --save
 ```
 
 ```js
